@@ -1,0 +1,29 @@
+{
+    "project_info": {
+        "project_number": "668433204476",
+        "project_id": "gosync-202512-firebase",
+        "storage_bucket": "gosync-202512-firebase.firebasestorage.app"
+    },
+    "client": [
+        {
+            "client_info": {
+                "mobilesdk_app_id": "1:668433204476:android:fabf551be89b614d3e0379",
+                "android_client_info": {
+                    "package_name": "com.example.flutter_antigravity_first_steps"
+                }
+            },
+            "oauth_client": [],
+            "api_key": [
+                {
+                    "current_key": "AIzaSyCVnNFug7yoQ8mk7HVRKXukETDL6yhPNhY"
+                }
+            ],
+            "services": {
+                "appinvite_service": {
+                    "other_platform_oauth_client": []
+                }
+            }
+        }
+    ],
+    "configuration_version": "1"
+}
