@@ -1,0 +1,103 @@
+{
+    "@@locale": "en",
+    "appTitle": "Flutter Demo",
+    "@appTitle": {
+        "description": "The title of the application"
+    },
+    "homePageTitle": "Flutter Demo Home Page",
+    "@homePageTitle": {
+        "description": "The title of the home page"
+    },
+    "drawerTitle": "Flutter Demo",
+    "@drawerTitle": {
+        "description": "The title shown in the navigation drawer header"
+    },
+    "home": "Home",
+    "@home": {
+        "description": "Home navigation item"
+    },
+    "pubDev": "Pub.dev",
+    "@pubDev": {
+        "description": "Pub.dev navigation item"
+    },
+    "golangOrg": "Golang.org",
+    "@golangOrg": {
+        "description": "Golang.org navigation item"
+    },
+    "darkTheme": "Dark Theme",
+    "@darkTheme": {
+        "description": "Label for dark theme toggle"
+    },
+    "counterText": "You have pushed the button this many times:",
+    "@counterText": {
+        "description": "Text shown above the counter"
+    },
+    "goToPubDev": "Go to pub.dev",
+    "@goToPubDev": {
+        "description": "Link text to pub.dev"
+    },
+    "goToGolangOrg": "Go to golang.org",
+    "@goToGolangOrg": {
+        "description": "Link text to golang.org"
+    },
+    "increment": "Increment",
+    "@increment": {
+        "description": "Tooltip for the increment button"
+    },
+    "languages": "Languages",
+    "@languages": {
+        "description": "Label for language selector"
+    },
+    "english": "English",
+    "@english": {
+        "description": "English language option"
+    },
+    "french": "French",
+    "@french": {
+        "description": "French language option"
+    },
+    "german": "German",
+    "@german": {
+        "description": "German language option"
+    },
+    "spanish": "Spanish (Spain)",
+    "@spanish": {
+        "description": "Spanish language option"
+    },
+    "dutch": "Dutch",
+    "@dutch": {
+        "description": "Dutch language option"
+    },
+    "danish": "Danish",
+    "@danish": {
+        "description": "Danish language option"
+    },
+    "japanese": "Japanese",
+    "@japanese": {
+        "description": "Japanese language option"
+    },
+    "mandarin": "Mandarin",
+    "@mandarin": {
+        "description": "Mandarin language option"
+    },
+    "cantonese": "Cantonese",
+    "@cantonese": {
+        "description": "Cantonese language option"
+    },
+    "ukrainian": "Ukrainian",
+    "@ukrainian": {
+        "description": "Ukrainian language option"
+    },
+    "latinAmericanSpanish": "Spanish (Latin America)",
+    "@latinAmericanSpanish": {
+        "description": "Latin American Spanish language option"
+    },
+    "italian": "Italian",
+    "@italian": {
+        "description": "Italian language option"
+    },
+    "irish": "Irish",
+    "@irish": {
+        "description": "Irish language option"
+    }
+}

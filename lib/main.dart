@@ -1,11 +1,13 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'ad_banner.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,6 +27,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   ThemeMode _themeMode = ThemeMode.light;
+  Locale _locale = const Locale('en');
 
   void _toggleTheme(bool isDark) {
     setState(() {
@@ -32,10 +35,38 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  void _changeLocale(Locale locale) {
+    setState(() {
+      _locale = locale;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en'),
+        Locale('fr'),
+        Locale('de'),
+        Locale('es'),
+        Locale('nl'),
+        Locale('da'),
+        Locale('ja'),
+        Locale('zh'),
+        Locale('yue'),
+        Locale('uk'),
+        Locale('es', '419'),
+        Locale('it'),
+        Locale('ga'),
+      ],
+      locale: _locale,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
@@ -49,9 +80,10 @@ class _MyAppState extends State<MyApp> {
       ),
       themeMode: _themeMode,
       home: MyHomePage(
-        title: 'Flutter Demo Home Page',
         onThemeChanged: _toggleTheme,
+        onLocaleChanged: _changeLocale,
         isDarkMode: _themeMode == ThemeMode.dark,
+        currentLocale: _locale,
       ),
     );
   }
@@ -60,14 +92,16 @@ class _MyAppState extends State<MyApp> {
 class MyHomePage extends StatefulWidget {
   const MyHomePage({
     super.key,
-    required this.title,
     required this.onThemeChanged,
+    required this.onLocaleChanged,
     required this.isDarkMode,
+    required this.currentLocale,
   });
 
-  final String title;
   final Function(bool) onThemeChanged;
+  final Function(Locale) onLocaleChanged;
   final bool isDarkMode;
+  final Locale currentLocale;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -95,67 +129,135 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: Text(l10n.homePageTitle),
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              child: Text(
-                'Flutter Demo',
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  fontSize: 24,
+      drawer: SizedBox(
+        width: 456, // 50% wider than default 304px
+        child: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                child: Text(
+                  l10n.drawerTitle,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                    fontSize: 24,
+                  ),
                 ),
               ),
-            ),
-            ListTile(
-              leading: const Icon(Icons.home),
-              title: const Text('Home'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.open_in_browser),
-              title: const Text('Pub.dev'),
-              onTap: () {
-                Navigator.pop(context);
-                launchUrl(Uri.parse('https://pub.dev'));
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.language),
-              title: const Text('Golang.org'),
-              onTap: () {
-                Navigator.pop(context);
-                launchUrl(Uri.parse('https://golang.org'));
-              },
-            ),
-            const Divider(),
-            SwitchListTile(
-              secondary: Icon(
-                widget.isDarkMode ? Icons.dark_mode : Icons.light_mode,
+              ListTile(
+                leading: const Icon(Icons.home),
+                title: Text(l10n.home),
+                onTap: () {
+                  Navigator.pop(context);
+                },
               ),
-              title: const Text('Dark Theme'),
-              value: widget.isDarkMode,
-              onChanged: (bool value) {
-                widget.onThemeChanged(value);
-              },
-            ),
-          ],
+              ListTile(
+                leading: const Icon(Icons.open_in_browser),
+                title: Text(l10n.pubDev),
+                onTap: () {
+                  Navigator.pop(context);
+                  launchUrl(Uri.parse('https://pub.dev'));
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.code),
+                title: Text(l10n.golangOrg),
+                onTap: () {
+                  Navigator.pop(context);
+                  launchUrl(Uri.parse('https://golang.org'));
+                },
+              ),
+              const Divider(),
+              ListTile(
+                leading: const Icon(Icons.language),
+                title: Text(l10n.languages),
+                trailing: DropdownButton<Locale>(
+                  value: widget.currentLocale,
+                  underline: const SizedBox(),
+                  items: [
+                    DropdownMenuItem(
+                      value: const Locale('en'),
+                      child: Text(l10n.english),
+                    ),
+                    DropdownMenuItem(
+                      value: const Locale('fr'),
+                      child: Text(l10n.french),
+                    ),
+                    DropdownMenuItem(
+                      value: const Locale('de'),
+                      child: Text(l10n.german),
+                    ),
+                    DropdownMenuItem(
+                      value: const Locale('es'),
+                      child: Text(l10n.spanish),
+                    ),
+                    DropdownMenuItem(
+                      value: const Locale('nl'),
+                      child: Text(l10n.dutch),
+                    ),
+                    DropdownMenuItem(
+                      value: const Locale('da'),
+                      child: Text(l10n.danish),
+                    ),
+                    DropdownMenuItem(
+                      value: const Locale('ja'),
+                      child: Text(l10n.japanese),
+                    ),
+                    DropdownMenuItem(
+                      value: const Locale('zh'),
+                      child: Text(l10n.mandarin),
+                    ),
+                    DropdownMenuItem(
+                      value: const Locale('yue'),
+                      child: Text(l10n.cantonese),
+                    ),
+                    DropdownMenuItem(
+                      value: const Locale('uk'),
+                      child: Text(l10n.ukrainian),
+                    ),
+                    DropdownMenuItem(
+                      value: const Locale('es', '419'),
+                      child: Text(l10n.latinAmericanSpanish),
+                    ),
+                    DropdownMenuItem(
+                      value: const Locale('it'),
+                      child: Text(l10n.italian),
+                    ),
+                    DropdownMenuItem(
+                      value: const Locale('ga'),
+                      child: Text(l10n.irish),
+                    ),
+                  ],
+                  onChanged: (Locale? locale) {
+                    if (locale != null) {
+                      widget.onLocaleChanged(locale);
+                      Navigator.pop(context);
+                    }
+                  },
+                ),
+              ),
+              SwitchListTile(
+                secondary: Icon(
+                  widget.isDarkMode ? Icons.dark_mode : Icons.light_mode,
+                ),
+                title: Text(l10n.darkTheme),
+                value: widget.isDarkMode,
+                onChanged: (bool value) {
+                  widget.onThemeChanged(value);
+                },
+              ),
+            ],
+          ),
         ),
       ),
       body: Center(
@@ -175,10 +277,10 @@ class _MyHomePageState extends State<MyHomePage> {
           // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
           // action in the IDE, or press "p" in the console), to see the
           // wireframe for each widget.
-          mainAxisAlignment: .center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const AdBanner(),
-            const Text('You have pushed the button this many times:'),
+            Text(l10n.counterText),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
@@ -186,9 +288,9 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(height: 20),
             InkWell(
               onTap: () => launchUrl(Uri.parse('https://pub.dev')),
-              child: const Text(
-                'Go to pub.dev',
-                style: TextStyle(
+              child: Text(
+                l10n.goToPubDev,
+                style: const TextStyle(
                   color: Colors.blue,
                   decoration: TextDecoration.underline,
                   fontSize: 22,
@@ -198,9 +300,9 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(height: 20),
             InkWell(
               onTap: () => launchUrl(Uri.parse('https://golang.org')),
-              child: const Text(
-                'Go to golang.org',
-                style: TextStyle(
+              child: Text(
+                l10n.goToGolangOrg,
+                style: const TextStyle(
                   color: Colors.blue,
                   decoration: TextDecoration.underline,
                   fontSize: 22,
@@ -221,7 +323,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
-        tooltip: 'Increment',
+        tooltip: l10n.increment,
         child: const Icon(Icons.add),
       ),
     );
