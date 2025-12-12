@@ -82,4 +82,7 @@ class AppLocalizationsYue extends AppLocalizations {
 
   @override
   String get irish => '愛爾蘭文';
+
+  @override
+  String get theme => 'Theme';
 }

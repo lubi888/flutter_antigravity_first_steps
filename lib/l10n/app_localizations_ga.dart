@@ -82,4 +82,7 @@ class AppLocalizationsGa extends AppLocalizations {
 
   @override
   String get irish => 'Gaeilge';
+
+  @override
+  String get theme => 'Theme';
 }

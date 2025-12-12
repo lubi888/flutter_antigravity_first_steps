@@ -99,5 +99,9 @@
     "irish": "Irish",
     "@irish": {
         "description": "Irish language option"
+    },
+    "theme": "Theme",
+    "@theme": {
+        "description": "Label for theme selector"
     }
 }

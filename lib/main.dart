@@ -28,6 +28,22 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   ThemeMode _themeMode = ThemeMode.light;
   Locale _locale = const Locale('en');
+  Color _seedColor = Colors.green;
+
+  final List<Color> _themeSeeds = [
+    Colors.green,
+    Colors.blue,
+    Colors.red,
+    Colors.purple,
+    Colors.orange,
+    Colors.teal,
+    Colors.pink,
+    Colors.indigo,
+    Colors.amber,
+    Colors.brown,
+    Colors.cyan,
+    Colors.deepOrange,
+  ];
 
   void _toggleTheme(bool isDark) {
     setState(() {
@@ -38,6 +54,12 @@ class _MyAppState extends State<MyApp> {
   void _changeLocale(Locale locale) {
     setState(() {
       _locale = locale;
+    });
+  }
+
+  void _changeThemeColor(Color color) {
+    setState(() {
+      _seedColor = color;
     });
   }
 
@@ -68,12 +90,12 @@ class _MyAppState extends State<MyApp> {
       ],
       locale: _locale,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+        colorScheme: ColorScheme.fromSeed(seedColor: _seedColor),
         useMaterial3: true,
       ),
       darkTheme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.green,
+          seedColor: _seedColor,
           brightness: Brightness.dark,
         ),
         useMaterial3: true,
@@ -82,8 +104,11 @@ class _MyAppState extends State<MyApp> {
       home: MyHomePage(
         onThemeChanged: _toggleTheme,
         onLocaleChanged: _changeLocale,
+        onThemeColorChanged: _changeThemeColor,
         isDarkMode: _themeMode == ThemeMode.dark,
         currentLocale: _locale,
+        currentSeedColor: _seedColor,
+        themeSeeds: _themeSeeds,
       ),
     );
   }
@@ -94,14 +119,20 @@ class MyHomePage extends StatefulWidget {
     super.key,
     required this.onThemeChanged,
     required this.onLocaleChanged,
+    required this.onThemeColorChanged,
     required this.isDarkMode,
     required this.currentLocale,
+    required this.currentSeedColor,
+    required this.themeSeeds,
   });
 
   final Function(bool) onThemeChanged;
   final Function(Locale) onLocaleChanged;
+  final Function(Color) onThemeColorChanged;
   final bool isDarkMode;
   final Locale currentLocale;
+  final Color currentSeedColor;
+  final List<Color> themeSeeds;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -246,6 +277,36 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                 ),
               ),
+              ListTile(
+                leading: const Icon(Icons.palette),
+                title: Text(l10n.theme),
+                trailing: DropdownButton<Color>(
+                  value: widget.currentSeedColor,
+                  underline: const SizedBox(),
+                  onChanged: (Color? color) {
+                    if (color != null) {
+                      widget.onThemeColorChanged(color);
+                      Navigator.pop(context);
+                    }
+                  },
+                  items: widget.themeSeeds.map<DropdownMenuItem<Color>>((
+                    Color color,
+                  ) {
+                    return DropdownMenuItem<Color>(
+                      value: color,
+                      child: Container(
+                        width: 24,
+                        height: 24,
+                        decoration: BoxDecoration(
+                          color: color,
+                          shape: BoxShape.circle,
+                          border: Border.all(color: Colors.grey, width: 1),
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ),
               SwitchListTile(
                 secondary: Icon(
                   widget.isDarkMode ? Icons.dark_mode : Icons.light_mode,
@@ -310,6 +371,37 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             const Spacer(),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Row(
+                children: widget.themeSeeds.map((color) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    child: GestureDetector(
+                      onTap: () => widget.onThemeColorChanged(color),
+                      child: Container(
+                        width: 48,
+                        height: 48,
+                        decoration: BoxDecoration(
+                          color: color,
+                          shape: BoxShape.circle,
+                          border: widget.currentSeedColor == color
+                              ? Border.all(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSurface,
+                                  width: 3,
+                                )
+                              : null,
+                        ),
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+            const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

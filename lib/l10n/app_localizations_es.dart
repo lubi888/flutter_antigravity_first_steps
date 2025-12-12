@@ -82,6 +82,9 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get irish => 'Irlandés';
+
+  @override
+  String get theme => 'Theme';
 }
 
 /// The translations for Spanish Castilian, as used in Latin America and the Caribbean (`es_419`).
