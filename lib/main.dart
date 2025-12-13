@@ -2,11 +2,14 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'ad_banner.dart';
+import 'page1.dart';
+import 'page2.dart';
+import 'page3.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'appbar.dart';
+import 'navigation_drawer.dart';
 import 'l10n/app_localizations.dart';
 
 void main() async {
@@ -165,293 +168,34 @@ class _MyHomePageState extends State<MyHomePage> {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          leading: Builder(
-            builder: (BuildContext context) {
-              return IconButton(
-                icon: const Icon(Icons.menu),
-                onPressed: () {
-                  Scaffold.of(context).openDrawer();
-                },
-                tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-              );
-            },
-          ),
-          title: const Text('antigravity'),
-          actions: [
-            PopupMenuButton<String>(
-              icon: const Icon(Icons.menu), // Hamburger menu in actions
-              onSelected: (String result) {
-                if (result == 'about') {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return const AlertDialog(
-                        title: Text('About App'),
-                        content: Text('Antigravity App v1.0'),
-                      );
-                    },
-                  );
-                }
-              },
-              itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                const PopupMenuItem<String>(
-                  value: 'about',
-                  child: Text('about app'),
-                ),
-              ],
-            ),
-          ],
-          bottom: const TabBar(
-            tabs: [
-              Tab(icon: Icon(Icons.home), text: 'Home'),
-              Tab(icon: Icon(Icons.star), text: 'Page 2'),
-              Tab(icon: Icon(Icons.person), text: 'Page 3'),
-            ],
-          ),
+        appBar: CustomAppBar(
+          onThemeChanged: widget.onThemeChanged,
+          onLocaleChanged: widget.onLocaleChanged,
+          onThemeColorChanged: widget.onThemeColorChanged,
+          isDarkMode: widget.isDarkMode,
+          currentLocale: widget.currentLocale,
+          currentSeedColor: widget.currentSeedColor,
+          themeSeeds: widget.themeSeeds,
         ),
-        drawer: SizedBox(
-          width: 456, // 50% wider than default 304px
-          child: Drawer(
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: [
-                DrawerHeader(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                  child: Text(
-                    l10n.drawerTitle,
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.onPrimary,
-                      fontSize: 24,
-                    ),
-                  ),
-                ),
-                ListTile(
-                  leading: const Icon(Icons.home),
-                  title: Text(l10n.home),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                ),
-                ListTile(
-                  leading: const Icon(Icons.open_in_browser),
-                  title: Text(l10n.pubDev),
-                  onTap: () {
-                    Navigator.pop(context);
-                    launchUrl(Uri.parse('https://pub.dev'));
-                  },
-                ),
-                ListTile(
-                  leading: const Icon(Icons.code),
-                  title: Text(l10n.golangOrg),
-                  onTap: () {
-                    Navigator.pop(context);
-                    launchUrl(Uri.parse('https://golang.org'));
-                  },
-                ),
-                const Divider(),
-                ListTile(
-                  leading: const Icon(Icons.language),
-                  title: Text(l10n.languages),
-                  trailing: DropdownButton<Locale>(
-                    value: widget.currentLocale,
-                    underline: const SizedBox(),
-                    items: [
-                      DropdownMenuItem(
-                        value: const Locale('en'),
-                        child: Text(l10n.english),
-                      ),
-                      DropdownMenuItem(
-                        value: const Locale('fr'),
-                        child: Text(l10n.french),
-                      ),
-                      DropdownMenuItem(
-                        value: const Locale('de'),
-                        child: Text(l10n.german),
-                      ),
-                      DropdownMenuItem(
-                        value: const Locale('es'),
-                        child: Text(l10n.spanish),
-                      ),
-                      DropdownMenuItem(
-                        value: const Locale('nl'),
-                        child: Text(l10n.dutch),
-                      ),
-                      DropdownMenuItem(
-                        value: const Locale('da'),
-                        child: Text(l10n.danish),
-                      ),
-                      DropdownMenuItem(
-                        value: const Locale('ja'),
-                        child: Text(l10n.japanese),
-                      ),
-                      DropdownMenuItem(
-                        value: const Locale('zh'),
-                        child: Text(l10n.mandarin),
-                      ),
-                      DropdownMenuItem(
-                        value: const Locale('yue'),
-                        child: Text(l10n.cantonese),
-                      ),
-                      DropdownMenuItem(
-                        value: const Locale('uk'),
-                        child: Text(l10n.ukrainian),
-                      ),
-                      DropdownMenuItem(
-                        value: const Locale('es', '419'),
-                        child: Text(l10n.latinAmericanSpanish),
-                      ),
-                      DropdownMenuItem(
-                        value: const Locale('it'),
-                        child: Text(l10n.italian),
-                      ),
-                      DropdownMenuItem(
-                        value: const Locale('ga'),
-                        child: Text(l10n.irish),
-                      ),
-                    ],
-                    onChanged: (Locale? locale) {
-                      if (locale != null) {
-                        widget.onLocaleChanged(locale);
-                        Navigator.pop(context);
-                      }
-                    },
-                  ),
-                ),
-                ListTile(
-                  leading: const Icon(Icons.palette),
-                  title: Text(l10n.theme),
-                  trailing: DropdownButton<Color>(
-                    value: widget.currentSeedColor,
-                    underline: const SizedBox(),
-                    onChanged: (Color? color) {
-                      if (color != null) {
-                        widget.onThemeColorChanged(color);
-                        Navigator.pop(context);
-                      }
-                    },
-                    items: widget.themeSeeds.map<DropdownMenuItem<Color>>((
-                      Color color,
-                    ) {
-                      return DropdownMenuItem<Color>(
-                        value: color,
-                        child: Container(
-                          width: 24,
-                          height: 24,
-                          decoration: BoxDecoration(
-                            color: color,
-                            shape: BoxShape.circle,
-                            border: Border.all(color: Colors.grey, width: 1),
-                          ),
-                        ),
-                      );
-                    }).toList(),
-                  ),
-                ),
-                SwitchListTile(
-                  secondary: Icon(
-                    widget.isDarkMode ? Icons.dark_mode : Icons.light_mode,
-                  ),
-                  title: Text(l10n.darkTheme),
-                  value: widget.isDarkMode,
-                  onChanged: (bool value) {
-                    widget.onThemeChanged(value);
-                  },
-                ),
-              ],
-            ),
-          ),
+        drawer: AppNavigationDrawer(
+          onThemeChanged: widget.onThemeChanged,
+          onLocaleChanged: widget.onLocaleChanged,
+          onThemeColorChanged: widget.onThemeColorChanged,
+          isDarkMode: widget.isDarkMode,
+          currentLocale: widget.currentLocale,
+          currentSeedColor: widget.currentSeedColor,
+          themeSeeds: widget.themeSeeds,
         ),
         body: TabBarView(
           children: [
-            Center(
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const AdBanner(),
-                    Text(l10n.counterText),
-                    Text(
-                      '$_counter',
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    ),
-                    const SizedBox(height: 20),
-                    InkWell(
-                      onTap: () => launchUrl(Uri.parse('https://pub.dev')),
-                      child: Text(
-                        l10n.goToPubDev,
-                        style: const TextStyle(
-                          color: Colors.blue,
-                          decoration: TextDecoration.underline,
-                          fontSize: 22,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    InkWell(
-                      onTap: () => launchUrl(Uri.parse('https://golang.org')),
-                      child: Text(
-                        l10n.goToGolangOrg,
-                        style: const TextStyle(
-                          color: Colors.blue,
-                          decoration: TextDecoration.underline,
-                          fontSize: 22,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 32),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Row(
-                        children: widget.themeSeeds.map((color) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 4.0,
-                            ),
-                            child: GestureDetector(
-                              onTap: () => widget.onThemeColorChanged(color),
-                              child: Container(
-                                width: 48,
-                                height: 48,
-                                decoration: BoxDecoration(
-                                  color: color,
-                                  shape: BoxShape.circle,
-                                  border: widget.currentSeedColor == color
-                                      ? Border.all(
-                                          color: Theme.of(
-                                            context,
-                                          ).colorScheme.onSurface,
-                                          width: 3,
-                                        )
-                                      : null,
-                                ),
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Expanded(
-                          child: Image.asset('assets/gopher_classic.png'),
-                        ),
-                        Expanded(child: Image.asset('assets/gopher_3d.png')),
-                        Expanded(child: Image.asset('assets/gopher_pixel.png')),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
+            Page1(
+              counter: _counter,
+              themeSeeds: widget.themeSeeds,
+              currentSeedColor: widget.currentSeedColor,
+              onThemeColorChanged: widget.onThemeColorChanged,
             ),
-            const Center(child: Text('Page 2 Content')),
-            const Center(child: Text('Page 3 Content')),
+            const Page2(),
+            const Page3(),
           ],
         ),
         floatingActionButton: FloatingActionButton(
