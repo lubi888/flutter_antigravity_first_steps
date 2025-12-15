@@ -48,8 +48,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 context: context,
                 builder: (BuildContext context) {
                   return const AlertDialog(
-                    title: Text('About App'),
-                    content: Text('Antigravity App v1.0'),
+                    backgroundColor: Colors.yellowAccent,
+                    title: Text(
+                      'About App',
+                      style: TextStyle(fontSize: 20.0, color: Colors.black),
+                    ),
+                    content: Text(
+                      'Antigravity App v1.0\ncreated by lubi linuxubiquitous and released by tortek 2025.12',
+                      style: TextStyle(fontSize: 20.0, color: Colors.red),
+                    ),
                   );
                 },
               );
@@ -184,7 +191,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   title: Text(l10n.darkTheme),
                   value: isDarkMode,
                   contentPadding: EdgeInsets.zero,
-                  activeColor: Theme.of(context).colorScheme.primary,
+                  activeThumbColor: Theme.of(context).colorScheme.primary,
                   onChanged: (bool value) {
                     onThemeChanged(value);
                     Navigator.pop(context);
