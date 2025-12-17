@@ -328,6 +328,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Gopher Two'**
   String get gopherTwo;
+
+  /// Golang Install on Windows Apple Linux
+  ///
+  /// In en, this message translates to:
+  /// **'Golang Install on Windows Apple Linux'**
+  String get goSyncHeading;
 }
 
 class _AppLocalizationsDelegate

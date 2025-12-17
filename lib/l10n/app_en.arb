@@ -139,5 +139,9 @@
     "gopherTwo": "Gopher Two",
     "@gopherTwo": {
         "description": "Gopher two image semantic label"
+    },
+    "goSyncHeading": "Golang Install on Windows Apple Linux",
+    "@goSyncHeading": {
+        "description": "Golang Install on Windows Apple Linux"
     }
 }

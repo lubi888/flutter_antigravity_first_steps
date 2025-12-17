@@ -113,6 +113,9 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get gopherTwo => 'Gopher Two';
+
+  @override
+  String get goSyncHeading => 'Golang Install on Windows Apple Linux';
 }
 
 /// The translations for Spanish Castilian, as used in Latin America and the Caribbean (`es_419`).

@@ -67,7 +67,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             }
           },
           itemBuilder: (BuildContext context) {
-            final l10n = AppLocalizations.of(context)!;
+            // final l10n = AppLocalizations.of(context)!;
             return <PopupMenuEntry<String>>[
               PopupMenuItem<String>(
                 value: 'home',

@@ -1,27 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'l10n/app_localizations.dart';
+import 'code.dart';
 
 class Page2 extends StatelessWidget {
   const Page2({super.key});
 
   @override
   Widget build(BuildContext context) {
-    const String goSyncHeading = 'Golang Install on Windows Apple Linux';
-    const String goHelloCode =
-        ('package main\n\n'
-        'import "fmt"\n\n'
-        'func main() {\n'
-        '\t\t\t\tfmt.Printf("hello golang\\n")\n'
-        '\t\t\t\tfmt.Println("hello golang on windows, apple, linux.")\n'
-        '}');
+    final l10n = AppLocalizations.of(context)!;
+    // const String goSyncHeading = 'Golang Install on Windows Apple Linux';
+    // const String goSyncHeading = 'Golang Install on Windows Apple Linux';
 
-    const String goPowerShell =
-        ('Windows PowerShell\n\n'
-        'Copyright (C) Microsoft Corporation. All rights reserved.\n\n'
-        'Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows\n\n'
-        'PS C:\\Users\\adam>go env\n\n'
-        'PS C:\\Users\\adam>');
+    // Text(
+    //   l10n.goSyncHeading,
+    //   style: TextStyle(fontSize: 20.0, color: Colors.black),
+    // );
+    // const String goHelloCode =
+    //     ('package main\n\n'
+    //     'import "fmt"\n\n'
+    //     'func main() {\n'
+    //     '\t\t\t\tfmt.Printf("hello golang\\n")\n'
+    //     '\t\t\t\tfmt.Println("hello golang on windows, apple, linux.")\n'
+    //     '}');
+
+    // const String goPowerShell =
+    //     ('Windows PowerShell\n\n'
+    //     'Copyright (C) Microsoft Corporation. All rights reserved.\n\n'
+    //     'Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows\n\n'
+    //     'PS C:\\Users\\adam>go env\n\n'
+    //     'PS C:\\Users\\adam>');
 
     return SingleChildScrollView(
       child: Center(
@@ -46,10 +55,14 @@ class Page2 extends StatelessWidget {
                 color: Colors.black,
                 borderRadius: const BorderRadius.all(Radius.circular(25.0)),
               ),
-              child: const Text(
+              child: Text(
                 // ethInstallGolandHeading,
                 // "Golang Install on Windows Apple Linux",
-                goSyncHeading,
+                // goSyncHeading,
+                // Text(
+                l10n.goSyncHeading,
+                //   style: TextStyle(fontSize: 20.0, color: Colors.black),
+                // );
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.visible,
                 style: TextStyle(
@@ -72,8 +85,9 @@ class Page2 extends StatelessWidget {
                 color: Colors.black,
                 borderRadius: const BorderRadius.all(Radius.circular(8.0)),
               ),
-              child: const SelectableText(
+              child: SelectableText(
                 goHelloCode,
+                // l10n.goHelloCode,
                 textAlign: TextAlign.left,
                 showCursor: true,
                 autofocus: true,
