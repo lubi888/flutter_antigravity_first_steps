@@ -5,6 +5,7 @@ import 'l10n/app_localizations.dart';
 class AppNavigationDrawer extends StatelessWidget {
   const AppNavigationDrawer({
     super.key,
+    required this.onTabChanged,
     required this.onThemeChanged,
     required this.onLocaleChanged,
     required this.onThemeColorChanged,
@@ -13,6 +14,8 @@ class AppNavigationDrawer extends StatelessWidget {
     required this.currentSeedColor,
     required this.themeSeeds,
   });
+
+  final Function(int) onTabChanged;
 
   final Function(bool) onThemeChanged;
   final Function(Locale) onLocaleChanged;
@@ -43,6 +46,31 @@ class AppNavigationDrawer extends StatelessWidget {
                 ),
               ),
             ),
+            ListTile(
+              leading: const Icon(Icons.looks_one),
+              title: Text(l10n.page1),
+              onTap: () {
+                onTabChanged(0);
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.looks_two),
+              title: Text(l10n.page2),
+              onTap: () {
+                onTabChanged(1);
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.looks_3),
+              title: Text(l10n.page3),
+              onTap: () {
+                onTabChanged(2);
+                Navigator.pop(context);
+              },
+            ),
+            const Divider(),
             ListTile(
               leading: const Icon(Icons.home),
               title: Text(l10n.home),

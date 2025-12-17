@@ -87,9 +87,24 @@ class Page1 extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Expanded(child: Image.asset('assets/gopher_classic.png')),
-                Expanded(child: Image.asset('assets/gopher_3d.png')),
-                Expanded(child: Image.asset('assets/gopher_pixel.png')),
+                Expanded(
+                  child: Semantics(
+                    label: l10n.gopherNought,
+                    child: Image.asset('assets/gopher_classic.png'),
+                  ),
+                ),
+                Expanded(
+                  child: Semantics(
+                    label: l10n.gopherOne,
+                    child: Image.asset('assets/gopher_3d.png'),
+                  ),
+                ),
+                Expanded(
+                  child: Semantics(
+                    label: l10n.gopherTwo,
+                    child: Image.asset('assets/gopher_pixel.png'),
+                  ),
+                ),
               ],
             ),
           ],

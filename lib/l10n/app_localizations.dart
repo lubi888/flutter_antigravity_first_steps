@@ -274,6 +274,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Theme'**
   String get theme;
+
+  /// Page 1 navigation item
+  ///
+  /// In en, this message translates to:
+  /// **'Page 1'**
+  String get page1;
+
+  /// Page 2 navigation item
+  ///
+  /// In en, this message translates to:
+  /// **'Page 2'**
+  String get page2;
+
+  /// Page 3 navigation item
+  ///
+  /// In en, this message translates to:
+  /// **'Page 3'**
+  String get page3;
+
+  /// The title of the about app dialog
+  ///
+  /// In en, this message translates to:
+  /// **'About App'**
+  String get aboutAppTitle;
+
+  /// The content of the about app dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Antigravity App v1.0\ncreated by lubi linuxubiquitous and released by tortek 2025.12'**
+  String get aboutAppContent;
+
+  /// The menu item for the about app dialog
+  ///
+  /// In en, this message translates to:
+  /// **'About App'**
+  String get aboutAppMenuItem;
+
+  /// Gopher nought image semantic label
+  ///
+  /// In en, this message translates to:
+  /// **'Gopher Nought'**
+  String get gopherNought;
+
+  /// Gopher one image semantic label
+  ///
+  /// In en, this message translates to:
+  /// **'Gopher One'**
+  String get gopherOne;
+
+  /// Gopher two image semantic label
+  ///
+  /// In en, this message translates to:
+  /// **'Gopher Two'**
+  String get gopherTwo;
 }
 
 class _AppLocalizationsDelegate

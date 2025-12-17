@@ -24,5 +24,27 @@
     "ukrainian": "乌克兰语",
     "latinAmericanSpanish": "西班牙语（拉丁美洲）",
     "italian": "意大利语",
-    "irish": "爱尔兰语"
+    "irish": "爱尔兰语",
+    "theme": "主题",
+    "@theme": {
+        "description": "Label for theme selector"
+    },
+    "page1": "第1页",
+    "@page1": {
+        "description": "Page 1 navigation item"
+    },
+    "page2": "第2页",
+    "@page2": {
+        "description": "Page 2 navigation item"
+    },
+    "page3": "第3页",
+    "@page3": {
+        "description": "Page 3 navigation item"
+    },
+    "aboutAppTitle": "About App",
+    "aboutAppContent": "Antigravity App v1.0\ncreated by lubi linuxubiquitous and released by tortek 2025.12",
+    "aboutAppMenuItem": "About App",
+    "gopherNought": "Gopher Nought",
+    "gopherOne": "Gopher One",
+    "gopherTwo": "Gopher Two"
 }

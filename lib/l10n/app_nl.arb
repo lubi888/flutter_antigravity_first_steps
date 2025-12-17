@@ -24,5 +24,27 @@
     "ukrainian": "Oekraïens",
     "latinAmericanSpanish": "Spaans (Latijns-Amerika)",
     "italian": "Italiaans",
-    "irish": "Iers"
+    "irish": "Iers",
+    "theme": "Thema",
+    "@theme": {
+        "description": "Label for theme selector"
+    },
+    "page1": "Pagina 1",
+    "@page1": {
+        "description": "Page 1 navigation item"
+    },
+    "page2": "Pagina 2",
+    "@page2": {
+        "description": "Page 2 navigation item"
+    },
+    "page3": "Pagina 3",
+    "@page3": {
+        "description": "Page 3 navigation item"
+    },
+    "aboutAppTitle": "About App",
+    "aboutAppContent": "Antigravity App v1.0\ncreated by lubi linuxubiquitous and released by tortek 2025.12",
+    "aboutAppMenuItem": "About App",
+    "gopherNought": "Gopher Nought",
+    "gopherOne": "Gopher One",
+    "gopherTwo": "Gopher Two"
 }

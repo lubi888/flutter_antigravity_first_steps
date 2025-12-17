@@ -141,8 +141,28 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage>
+    with SingleTickerProviderStateMixin {
   int _counter = 0;
+  late TabController _tabController;
+
+  void _changeTab(int tabIndex) {
+    setState(() {
+      _tabController.index = tabIndex;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
 
   void _incrementCounter() {
     setState(() {
@@ -165,44 +185,44 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     final l10n = AppLocalizations.of(context)!;
 
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        appBar: CustomAppBar(
-          onThemeChanged: widget.onThemeChanged,
-          onLocaleChanged: widget.onLocaleChanged,
-          onThemeColorChanged: widget.onThemeColorChanged,
-          isDarkMode: widget.isDarkMode,
-          currentLocale: widget.currentLocale,
-          currentSeedColor: widget.currentSeedColor,
-          themeSeeds: widget.themeSeeds,
-        ),
-        drawer: AppNavigationDrawer(
-          onThemeChanged: widget.onThemeChanged,
-          onLocaleChanged: widget.onLocaleChanged,
-          onThemeColorChanged: widget.onThemeColorChanged,
-          isDarkMode: widget.isDarkMode,
-          currentLocale: widget.currentLocale,
-          currentSeedColor: widget.currentSeedColor,
-          themeSeeds: widget.themeSeeds,
-        ),
-        body: TabBarView(
-          children: [
-            Page1(
-              counter: _counter,
-              themeSeeds: widget.themeSeeds,
-              currentSeedColor: widget.currentSeedColor,
-              onThemeColorChanged: widget.onThemeColorChanged,
-            ),
-            const Page2(),
-            const Page3(),
-          ],
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: _incrementCounter,
-          tooltip: l10n.increment,
-          child: const Icon(Icons.add),
-        ),
+    return Scaffold(
+      appBar: CustomAppBar(
+        tabController: _tabController,
+        onThemeChanged: widget.onThemeChanged,
+        onLocaleChanged: widget.onLocaleChanged,
+        onThemeColorChanged: widget.onThemeColorChanged,
+        isDarkMode: widget.isDarkMode,
+        currentLocale: widget.currentLocale,
+        currentSeedColor: widget.currentSeedColor,
+        themeSeeds: widget.themeSeeds,
+      ),
+      drawer: AppNavigationDrawer(
+        onTabChanged: _changeTab,
+        onThemeChanged: widget.onThemeChanged,
+        onLocaleChanged: widget.onLocaleChanged,
+        onThemeColorChanged: widget.onThemeColorChanged,
+        isDarkMode: widget.isDarkMode,
+        currentLocale: widget.currentLocale,
+        currentSeedColor: widget.currentSeedColor,
+        themeSeeds: widget.themeSeeds,
+      ),
+      body: TabBarView(
+        controller: _tabController,
+        children: [
+          Page1(
+            counter: _counter,
+            themeSeeds: widget.themeSeeds,
+            currentSeedColor: widget.currentSeedColor,
+            onThemeColorChanged: widget.onThemeColorChanged,
+          ),
+          const Page2(),
+          const Page3(),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementCounter,
+        tooltip: l10n.increment,
+        child: const Icon(Icons.add),
       ),
     );
   }

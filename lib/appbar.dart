@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-
 import 'l10n/app_localizations.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
     super.key,
+    required this.tabController,
     required this.onThemeChanged,
     required this.onLocaleChanged,
     required this.onThemeColorChanged,
@@ -13,6 +13,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.currentSeedColor,
     required this.themeSeeds,
   });
+
+  final TabController tabController;
 
   final Function(bool) onThemeChanged;
   final Function(Locale) onLocaleChanged;
@@ -24,6 +26,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return AppBar(
       backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       leading: Builder(
@@ -37,7 +40,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           );
         },
       ),
-      title: const Text('antigravity'),
+      title: Text(l10n.appTitle),
+      // title: const Text('antigravity'),
       actions: [
         PopupMenuButton<String>(
           constraints: const BoxConstraints(minWidth: 532, maxWidth: 532),
@@ -47,14 +51,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return const AlertDialog(
+                  return AlertDialog(
                     backgroundColor: Colors.yellowAccent,
                     title: Text(
-                      'About App',
+                      l10n.aboutAppTitle,
                       style: TextStyle(fontSize: 20.0, color: Colors.black),
                     ),
                     content: Text(
-                      'Antigravity App v1.0\ncreated by lubi linuxubiquitous and released by tortek 2025.12',
+                      l10n.aboutAppContent,
                       style: TextStyle(fontSize: 20.0, color: Colors.red),
                     ),
                   );
@@ -198,11 +202,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   },
                 ),
               ),
-              const PopupMenuItem<String>(
+              PopupMenuItem<String>(
                 value: 'about',
                 child: ListTile(
-                  leading: Icon(Icons.info),
-                  title: Text('about app'),
+                  leading: const Icon(Icons.info),
+                  title: Text(l10n.aboutAppMenuItem),
                   contentPadding: EdgeInsets.zero,
                   dense: true,
                 ),
@@ -211,11 +215,17 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           },
         ),
       ],
-      bottom: const TabBar(
+      bottom: TabBar(
+        controller: tabController,
         tabs: [
-          Tab(icon: Icon(Icons.home), text: 'Home'),
-          Tab(icon: Icon(Icons.star), text: 'Page 2'),
-          Tab(icon: Icon(Icons.person), text: 'Page 3'),
+          // l10n = AppLocalizations.of(context)!;
+
+          // Tab(icon: Icon(Icons.home), text: 'Home'),
+          // Tab(icon: Icon(Icons.star), text: 'Page 2'),
+          // Tab(icon: Icon(Icons.person), text: 'Page 3'),
+          Tab(icon: const Icon(Icons.home), text: l10n.home),
+          Tab(icon: const Icon(Icons.star), text: l10n.page2),
+          Tab(icon: const Icon(Icons.person), text: l10n.page3),
         ],
       ),
     );

@@ -84,5 +84,33 @@ class AppLocalizationsUk extends AppLocalizations {
   String get irish => 'Ірландська';
 
   @override
-  String get theme => 'Theme';
+  String get theme => 'Тема';
+
+  @override
+  String get page1 => 'Сторінка 1';
+
+  @override
+  String get page2 => 'Сторінка 2';
+
+  @override
+  String get page3 => 'Сторінка 3';
+
+  @override
+  String get aboutAppTitle => 'About App';
+
+  @override
+  String get aboutAppContent =>
+      'Antigravity App v1.0\ncreated by lubi linuxubiquitous and released by tortek 2025.12';
+
+  @override
+  String get aboutAppMenuItem => 'About App';
+
+  @override
+  String get gopherNought => 'Gopher Nought';
+
+  @override
+  String get gopherOne => 'Gopher One';
+
+  @override
+  String get gopherTwo => 'Gopher Two';
 }

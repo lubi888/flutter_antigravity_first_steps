@@ -84,5 +84,33 @@ class AppLocalizationsJa extends AppLocalizations {
   String get irish => 'アイルランド語';
 
   @override
-  String get theme => 'Theme';
+  String get theme => 'テーマ';
+
+  @override
+  String get page1 => 'ページ1';
+
+  @override
+  String get page2 => 'ページ2';
+
+  @override
+  String get page3 => 'ページ3';
+
+  @override
+  String get aboutAppTitle => 'About App';
+
+  @override
+  String get aboutAppContent =>
+      'Antigravity App v1.0\ncreated by lubi linuxubiquitous and released by tortek 2025.12';
+
+  @override
+  String get aboutAppMenuItem => 'About App';
+
+  @override
+  String get gopherNought => 'Gopher Nought';
+
+  @override
+  String get gopherOne => 'Gopher One';
+
+  @override
+  String get gopherTwo => 'Gopher Two';
 }

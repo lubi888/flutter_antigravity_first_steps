@@ -103,5 +103,41 @@
     "theme": "Theme",
     "@theme": {
         "description": "Label for theme selector"
+    },
+    "page1": "Page 1",
+    "@page1": {
+        "description": "Page 1 navigation item"
+    },
+    "page2": "Page 2",
+    "@page2": {
+        "description": "Page 2 navigation item"
+    },
+    "page3": "Page 3",
+    "@page3": {
+        "description": "Page 3 navigation item"
+    },
+    "aboutAppTitle": "About App",
+    "@aboutAppTitle": {
+        "description": "The title of the about app dialog"
+    },
+    "aboutAppContent": "Antigravity App v1.0\ncreated by lubi linuxubiquitous and released by tortek 2025.12",
+    "@aboutAppContent": {
+        "description": "The content of the about app dialog"
+    },
+    "aboutAppMenuItem": "About App",
+    "@aboutAppMenuItem": {
+        "description": "The menu item for the about app dialog"
+    },
+    "gopherNought": "Gopher Nought",
+    "@gopherNought": {
+        "description": "Gopher nought image semantic label"
+    },
+    "gopherOne": "Gopher One",
+    "@gopherOne": {
+        "description": "Gopher one image semantic label"
+    },
+    "gopherTwo": "Gopher Two",
+    "@gopherTwo": {
+        "description": "Gopher two image semantic label"
     }
 }

@@ -84,5 +84,33 @@ class AppLocalizationsZh extends AppLocalizations {
   String get irish => '爱尔兰语';
 
   @override
-  String get theme => 'Theme';
+  String get theme => '主题';
+
+  @override
+  String get page1 => '第1页';
+
+  @override
+  String get page2 => '第2页';
+
+  @override
+  String get page3 => '第3页';
+
+  @override
+  String get aboutAppTitle => 'About App';
+
+  @override
+  String get aboutAppContent =>
+      'Antigravity App v1.0\ncreated by lubi linuxubiquitous and released by tortek 2025.12';
+
+  @override
+  String get aboutAppMenuItem => 'About App';
+
+  @override
+  String get gopherNought => 'Gopher Nought';
+
+  @override
+  String get gopherOne => 'Gopher One';
+
+  @override
+  String get gopherTwo => 'Gopher Two';
 }
