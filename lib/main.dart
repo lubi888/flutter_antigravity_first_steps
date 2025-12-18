@@ -95,6 +95,29 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: _seedColor),
         useMaterial3: true,
+        textTheme: const TextTheme(
+          displayLarge: TextStyle(
+            fontSize: 60.0,
+            fontWeight: FontWeight.bold,
+          ), // Scaled from 57.0
+          titleLarge: TextStyle(
+            fontSize: 24.0,
+            fontWeight: FontWeight.bold,
+          ), // Scaled from 22.0
+          bodyLarge: TextStyle(fontSize: 18.0, height: 1.5), // Scaled from 16.0
+          bodyMedium: TextStyle(
+            fontSize: 16.0,
+            height: 1.4,
+          ), // Scaled from 14.0 (requested base font)
+          headlineSmall: TextStyle(
+            fontSize: 28.0,
+            fontWeight: FontWeight.bold,
+          ), // Scaled from 24.0
+          labelSmall: TextStyle(
+            fontSize: 12.0,
+            color: Colors.grey,
+          ), // Scaled from 11.0
+        ),
       ),
       darkTheme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
@@ -102,6 +125,14 @@ class _MyAppState extends State<MyApp> {
           brightness: Brightness.dark,
         ),
         useMaterial3: true,
+        textTheme: const TextTheme(
+          displayLarge: TextStyle(fontSize: 60.0, fontWeight: FontWeight.bold),
+          titleLarge: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+          bodyLarge: TextStyle(fontSize: 18.0, height: 1.5),
+          bodyMedium: TextStyle(fontSize: 16.0, height: 1.4),
+          headlineSmall: TextStyle(fontSize: 28.0, fontWeight: FontWeight.bold),
+          labelSmall: TextStyle(fontSize: 12.0, color: Colors.grey),
+        ),
       ),
       themeMode: _themeMode,
       home: MyHomePage(

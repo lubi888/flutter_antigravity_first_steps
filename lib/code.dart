@@ -24,22 +24,24 @@ const String goInstallLinux =
     '\t\texport PATH=\$PATH:/usr/local/go/bin\n\n'
     'Note: Changes made to a profile file may not apply until the next time you log into your computer. To apply the changes immediately, just run the shell commands directly or execute them from the profile using a command such as source \$HOME/.profile.\n\n'
     '3, Verify that you\'ve installed Go by opening a command prompt and typing the following command:\n\n'
-    '\t\t\$ go version'
+    '\t\t\$ go version\n\n'
     '4, Confirm that the command prints the installed version of Go.');
 
 const String goInstallMac =
-    ('1, Open the package file you downloaded and follow the prompts to install Go.\n\n'
+    ('Mac\n\n'
+    '1, Open the package file you downloaded and follow the prompts to install Go.\n\n'
     'The package installs the Go distribution to /usr/local/go. The package should put the /usr/local/go/bin directory in your PATH environment variable. You may need to restart any open Terminal sessions for the change to take effect.\n\n'
     '2, Verify that you\'ve installed Go by opening a command prompt and typing the following command:\n\n'
     '\t\t\$ go version\n\n'
     '3, Confirm that the command prints the installed version of Go.');
 
 const String goInstallWindows =
-    ('1, Open the MSI file you downloaded and follow the prompts to install Go.\n\n'
+    ('Windows\n\n'
+    '1, Open the MSI file you downloaded and follow the prompts to install Go.\n\n'
     'By default, the installer will install Go to Program Files or Program Files (x86). You can change the location as needed. After installing, you will need to close and reopen any open command prompts so that changes to the environment made by the installer are reflected at the command prompt.\n\n'
     '2, Verify that you\'ve installed Go.\n\n'
     '1, In Windows, click the Start menu.\n\n'
     '2, In the menu\'s search box, type cmd, then press the Enter key.\n\n'
-    '3, In the Command Prompt window that appears, type the following command\:\n\n'
+    '3, In the Command Prompt window that appears, type the following command:\n\n'
     '\t\t\$ go version\n\n'
     '4, Confirm that the command prints the installed version of Go.');
