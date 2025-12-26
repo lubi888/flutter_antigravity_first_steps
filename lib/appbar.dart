@@ -12,6 +12,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.currentLocale,
     required this.currentSeedColor,
     required this.themeSeeds,
+    required this.onCloseDrawer,
+    required this.textSizeFactor,
+    required this.onTextSizeChanged,
   });
 
   final TabController tabController;
@@ -23,6 +26,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Locale currentLocale;
   final Color currentSeedColor;
   final List<Color> themeSeeds;
+  final VoidCallback onCloseDrawer;
+  final double textSizeFactor;
+  final Function(double) onTextSizeChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -198,9 +204,66 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   activeThumbColor: Theme.of(context).colorScheme.primary,
                   onChanged: (bool value) {
                     onThemeChanged(value);
-                    Navigator.pop(context);
+                    // Navigator.pop(context); // Do not pop here, as it closes the entire menu
                   },
                 ),
+              ),
+              PopupMenuItem<String>(
+                enabled: false,
+                child: StatefulBuilder(
+                  builder: (BuildContext context, StateSetter setState) {
+                    // Local state for the slider's position
+                    double _currentSliderValue = switch (textSizeFactor) {
+                      1.0 => 0,
+                      1.25 => 1,
+                      _ => 2,
+                    }.toDouble();
+
+                    String _getLabel(double value) {
+                      return switch (value.toInt()) {
+                        0 => 'Small',
+                        1 => 'Medium',
+                        _ => 'Large',
+                      };
+                    }
+
+                    return ListTile(
+                      leading: const Icon(Icons.format_size),
+                      title: const Text('Text Size'),
+                      subtitle: Slider(
+                        value: _currentSliderValue,
+                        min: 0,
+                        max: 2,
+                        divisions: 2,
+                        label: _getLabel(_currentSliderValue),
+                        onChanged: (double value) {
+                          setState(() {
+                            _currentSliderValue = value;
+                          });
+                          final newFactor = switch (value.toInt()) {
+                            0 => 1.0,
+                            1 => 1.25,
+                            _ => 1.5,
+                          };
+                          onTextSizeChanged(newFactor);
+                        },
+                      ),
+                    );
+                  },
+                ),
+              ),
+              PopupMenuItem<String>(
+                value: 'close_drawer', // Unique value for this menu item
+                child: ListTile(
+                  leading: const Icon(Icons.close),
+                  title: const Text('Close drawer'),
+                  contentPadding: EdgeInsets.zero,
+                  dense: true,
+                ),
+                onTap: () {
+                  onCloseDrawer(); // Corrected: remove widget.
+                  // Navigator.pop(context); // This was incorrectly closing the route
+                },
               ),
               PopupMenuItem<String>(
                 value: 'about',

@@ -13,6 +13,8 @@ class AppNavigationDrawer extends StatelessWidget {
     required this.currentLocale,
     required this.currentSeedColor,
     required this.themeSeeds,
+    required this.textSizeFactor, // New
+    required this.onTextSizeChanged, // New
   });
 
   final Function(int) onTabChanged;
@@ -24,6 +26,8 @@ class AppNavigationDrawer extends StatelessWidget {
   final Locale currentLocale;
   final Color currentSeedColor;
   final List<Color> themeSeeds;
+  final double textSizeFactor; // New
+  final Function(double) onTextSizeChanged; // New
 
   @override
   Widget build(BuildContext context) {
@@ -197,6 +201,40 @@ class AppNavigationDrawer extends StatelessWidget {
               value: isDarkMode,
               onChanged: (bool value) {
                 onThemeChanged(value);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.format_size),
+              title: const Text('Text Size'),
+              subtitle: Slider(
+                value: switch (textSizeFactor) {
+                  1.0 => 0,
+                  1.25 => 1,
+                  _ => 2,
+                }.toDouble(),
+                min: 0,
+                max: 2,
+                divisions: 2,
+                label: switch (textSizeFactor) {
+                  1.0 => 'Small',
+                  1.25 => 'Medium',
+                  _ => 'Large',
+                },
+                onChanged: (double value) {
+                  final newFactor = switch (value.toInt()) {
+                    0 => 1.0,
+                    1 => 1.25,
+                    _ => 1.5,
+                  };
+                  onTextSizeChanged(newFactor);
+                },
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.close),
+              title: const Text('Close drawer'),
+              onTap: () {
+                Navigator.pop(context);
               },
             ),
           ],

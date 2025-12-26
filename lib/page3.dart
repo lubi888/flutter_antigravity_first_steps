@@ -162,7 +162,7 @@ class _Page3State extends State<Page3> {
 
 ### Method 3: From `code.dart`
 
-${goInstallLinux}
+$goInstallLinux
 ''',
                       ),
                       const SizedBox(height: 40),
@@ -315,7 +315,7 @@ For removing Go with tools, you can also use the command line:
 * Uninstall using the command line by running the following command:
 
 ```
-msiexec /x go\{\{version\}\}.windows-\{\{cpu-arch\}\}.msi /q
+msiexec /x go{{version}}.windows-{{cpu-arch}}.msi /q
 ```
 
 Note: Using this uninstall process for Windows will automatically remove Windows environment variables created by the original installation.

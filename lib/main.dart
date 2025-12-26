@@ -32,6 +32,7 @@ class _MyAppState extends State<MyApp> {
   ThemeMode _themeMode = ThemeMode.light;
   Locale _locale = const Locale('en');
   Color _seedColor = Colors.green;
+  double _textSizeFactor = 1.0; // New: Text size scaling factor
 
   final List<Color> _themeSeeds = [
     Colors.green,
@@ -66,6 +67,13 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  void _changeTextSize(double factor) {
+    // New: Method to change text size factor
+    setState(() {
+      _textSizeFactor = factor;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -95,28 +103,26 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: _seedColor),
         useMaterial3: true,
-        textTheme: const TextTheme(
+        textTheme: TextTheme(
+          // Removed const here because of dynamic sizing
           displayLarge: TextStyle(
-            fontSize: 60.0,
+            fontSize: 60.0 * _textSizeFactor,
             fontWeight: FontWeight.bold,
-          ), // Scaled from 57.0
+          ),
           titleLarge: TextStyle(
-            fontSize: 24.0,
+            fontSize: 24.0 * _textSizeFactor,
             fontWeight: FontWeight.bold,
-          ), // Scaled from 22.0
-          bodyLarge: TextStyle(fontSize: 18.0, height: 1.5), // Scaled from 16.0
-          bodyMedium: TextStyle(
-            fontSize: 16.0,
-            height: 1.4,
-          ), // Scaled from 14.0 (requested base font)
+          ),
+          bodyLarge: TextStyle(fontSize: 18.0 * _textSizeFactor, height: 1.5),
+          bodyMedium: TextStyle(fontSize: 16.0 * _textSizeFactor, height: 1.4),
           headlineSmall: TextStyle(
-            fontSize: 28.0,
+            fontSize: 28.0 * _textSizeFactor,
             fontWeight: FontWeight.bold,
-          ), // Scaled from 24.0
+          ),
           labelSmall: TextStyle(
-            fontSize: 12.0,
+            fontSize: 12.0 * _textSizeFactor,
             color: Colors.grey,
-          ), // Scaled from 11.0
+          ),
         ),
       ),
       darkTheme: ThemeData(
@@ -125,13 +131,26 @@ class _MyAppState extends State<MyApp> {
           brightness: Brightness.dark,
         ),
         useMaterial3: true,
-        textTheme: const TextTheme(
-          displayLarge: TextStyle(fontSize: 60.0, fontWeight: FontWeight.bold),
-          titleLarge: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-          bodyLarge: TextStyle(fontSize: 18.0, height: 1.5),
-          bodyMedium: TextStyle(fontSize: 16.0, height: 1.4),
-          headlineSmall: TextStyle(fontSize: 28.0, fontWeight: FontWeight.bold),
-          labelSmall: TextStyle(fontSize: 12.0, color: Colors.grey),
+        textTheme: TextTheme(
+          // Removed const here
+          displayLarge: TextStyle(
+            fontSize: 60.0 * _textSizeFactor,
+            fontWeight: FontWeight.bold,
+          ),
+          titleLarge: TextStyle(
+            fontSize: 24.0 * _textSizeFactor,
+            fontWeight: FontWeight.bold,
+          ),
+          bodyLarge: TextStyle(fontSize: 18.0 * _textSizeFactor, height: 1.5),
+          bodyMedium: TextStyle(fontSize: 16.0 * _textSizeFactor, height: 1.4),
+          headlineSmall: TextStyle(
+            fontSize: 28.0 * _textSizeFactor,
+            fontWeight: FontWeight.bold,
+          ),
+          labelSmall: TextStyle(
+            fontSize: 12.0 * _textSizeFactor,
+            color: Colors.grey,
+          ),
         ),
       ),
       themeMode: _themeMode,
@@ -143,6 +162,9 @@ class _MyAppState extends State<MyApp> {
         currentLocale: _locale,
         currentSeedColor: _seedColor,
         themeSeeds: _themeSeeds,
+        textSizeFactor: _textSizeFactor, // New: Pass text size factor
+        onTextSizeChanged:
+            _changeTextSize, // New: Pass text size change callback
       ),
     );
   }
@@ -158,6 +180,8 @@ class MyHomePage extends StatefulWidget {
     required this.currentLocale,
     required this.currentSeedColor,
     required this.themeSeeds,
+    required this.textSizeFactor, // Re-added
+    required this.onTextSizeChanged, // Re-added
   });
 
   final Function(bool) onThemeChanged;
@@ -167,6 +191,8 @@ class MyHomePage extends StatefulWidget {
   final Locale currentLocale;
   final Color currentSeedColor;
   final List<Color> themeSeeds;
+  final double textSizeFactor; // Re-added
+  final Function(double) onTextSizeChanged; // Re-added
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -176,6 +202,8 @@ class _MyHomePageState extends State<MyHomePage>
     with SingleTickerProviderStateMixin {
   int _counter = 0;
   late TabController _tabController;
+  final GlobalKey<ScaffoldState> _scaffoldKey =
+      GlobalKey<ScaffoldState>(); // New: Key for Scaffold
 
   void _changeTab(int tabIndex) {
     setState(() {
@@ -206,6 +234,11 @@ class _MyHomePageState extends State<MyHomePage>
     });
   }
 
+  void _closeDrawer() {
+    // New: Method to close the drawer
+    _scaffoldKey.currentState?.closeDrawer();
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -217,6 +250,7 @@ class _MyHomePageState extends State<MyHomePage>
     final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
+      key: _scaffoldKey, // Apply the key to the Scaffold
       appBar: CustomAppBar(
         tabController: _tabController,
         onThemeChanged: widget.onThemeChanged,
@@ -226,6 +260,9 @@ class _MyHomePageState extends State<MyHomePage>
         currentLocale: widget.currentLocale,
         currentSeedColor: widget.currentSeedColor,
         themeSeeds: widget.themeSeeds,
+        onCloseDrawer: _closeDrawer,
+        textSizeFactor: widget.textSizeFactor, // Re-added
+        onTextSizeChanged: widget.onTextSizeChanged, // Re-added
       ),
       drawer: AppNavigationDrawer(
         onTabChanged: _changeTab,
@@ -236,6 +273,8 @@ class _MyHomePageState extends State<MyHomePage>
         currentLocale: widget.currentLocale,
         currentSeedColor: widget.currentSeedColor,
         themeSeeds: widget.themeSeeds,
+        textSizeFactor: widget.textSizeFactor, // New
+        onTextSizeChanged: widget.onTextSizeChanged, // New
       ),
       body: TabBarView(
         controller: _tabController,
