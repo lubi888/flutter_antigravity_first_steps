@@ -213,13 +213,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 child: StatefulBuilder(
                   builder: (BuildContext context, StateSetter setState) {
                     // Local state for the slider's position
-                    double _currentSliderValue = switch (textSizeFactor) {
+                    double currentSliderValue = switch (textSizeFactor) {
                       1.0 => 0,
                       1.25 => 1,
                       _ => 2,
                     }.toDouble();
 
-                    String _getLabel(double value) {
+                    String getLabel(double value) {
                       return switch (value.toInt()) {
                         0 => 'Small',
                         1 => 'Medium',
@@ -231,14 +231,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       leading: const Icon(Icons.format_size),
                       title: const Text('Text Size'),
                       subtitle: Slider(
-                        value: _currentSliderValue,
+                        value: currentSliderValue,
                         min: 0,
                         max: 2,
                         divisions: 2,
-                        label: _getLabel(_currentSliderValue),
+                        label: getLabel(currentSliderValue),
                         onChanged: (double value) {
                           setState(() {
-                            _currentSliderValue = value;
+                            currentSliderValue = value;
                           });
                           final newFactor = switch (value.toInt()) {
                             0 => 1.0,
